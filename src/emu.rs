@@ -10,8 +10,8 @@ use gdbstub::target::{TargetError, TargetResult};
 use singlyton::{Singleton, SingletonOption};
 use std::collections::HashMap;
 use std::convert::TryFrom;
-use unicorn_engine::unicorn_const::{uc_error, HookType, MemType, Mode, Query};
-use unicorn_engine::Unicorn;
+use unicornafl::unicorn_const::{uc_error, HookType, MemType, Mode, Query};
+use unicornafl::Unicorn;
 
 static STEP_STATE: Singleton<bool> = Singleton::new(false);
 static STEP_HOOK: SingletonOption<Hook> = SingletonOption::new();

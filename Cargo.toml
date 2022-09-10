@@ -19,7 +19,8 @@ capi = []
 [dependencies]
 gdbstub = "0.6"
 singlyton = "4"
-unicorn-engine = { version = "2.0.0", features = ["dynamic_linkage"] }
+unicorn-engine = { version = "2.0.0" }
+unicornafl = { path = "/home/user/tools/AFLplusplus/unicorn_mode/unicornafl/bindings/rust", version="1.1.0" }
 
 [package.metadata.capi.header]
 subdirectory = false

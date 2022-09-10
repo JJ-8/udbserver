@@ -1,5 +1,5 @@
 use core::convert::TryInto;
-use unicorn_engine::unicorn_const::{Arch, Mode};
+use unicornafl::unicorn_const::{Arch, Mode};
 
 mod arm;
 mod arm64;

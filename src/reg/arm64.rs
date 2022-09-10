@@ -1,5 +1,5 @@
 use crate::reg::RegMap;
-use unicorn_engine::RegisterARM64;
+use unicornafl::RegisterARM64;
 
 pub static REGMAP: RegMap = RegMap {
     regs: &[

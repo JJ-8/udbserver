@@ -4,7 +4,7 @@ use singlyton::SingletonOption;
 use std::borrow::BorrowMut;
 use std::convert::TryFrom;
 use std::ffi::c_void;
-use unicorn_engine::Unicorn;
+use unicornafl::Unicorn;
 
 type uc_handle = *mut c_void;
 

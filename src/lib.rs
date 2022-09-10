@@ -13,8 +13,8 @@ use singlyton::SingletonOption;
 use std::borrow::BorrowMut;
 use std::ffi::c_void;
 use std::net::{TcpListener, TcpStream};
-use unicorn_engine::unicorn_const::{HookType, MemType};
-use unicorn_engine::Unicorn;
+use unicornafl::unicorn_const::{HookType, MemType};
+use unicornafl::Unicorn;
 
 type DynResult<T> = Result<T, Box<dyn std::error::Error>>;
 type Hook = *mut c_void;

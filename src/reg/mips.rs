@@ -1,5 +1,5 @@
 use crate::reg::RegMap;
-use unicorn_engine::RegisterMIPS;
+use unicornafl::RegisterMIPS;
 
 pub static REGMAP: RegMap = RegMap {
     regs: &[

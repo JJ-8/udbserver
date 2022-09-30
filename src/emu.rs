@@ -15,6 +15,7 @@ use unicornafl::Unicorn;
 
 static STEP_STATE: Singleton<bool> = Singleton::new(false);
 static STEP_HOOK: SingletonOption<Hook> = SingletonOption::new();
+static STEP_HOOK_TO_DELETE: SingletonOption<Hook> = SingletonOption::new();
 static WATCH_ADDR: SingletonOption<u64> = SingletonOption::new();
 
 fn copy_to_buf(data: &[u8], buf: &mut [u8]) -> usize {
@@ -40,7 +41,9 @@ fn step_cb(uc: &mut Unicorn<()>, _addr: u64, _size: u32) {
         return;
     }
     if let Some(step_hook) = STEP_HOOK.take() {
-        uc.remove_hook(step_hook).expect("Failed to remove step hook");
+        if STEP_HOOK_TO_DELETE.is_none() {
+            STEP_HOOK_TO_DELETE.replace(step_hook);
+        }
     }
     crate::udbserver_resume(WATCH_ADDR.take()).expect("Failed to resume udbserver");
 }
@@ -182,6 +185,10 @@ impl target::ext::base::singlethread::SingleThreadSingleStep for Emu<'_> {
     fn step(&mut self, signal: Option<Signal>) -> Result<(), Self::Error> {
         if signal.is_some() {
             return Err("no support for stepping with signal");
+        }
+
+        if let Some(step_hook_to_delete) = STEP_HOOK_TO_DELETE.take() {
+            self.uc.remove_hook(step_hook_to_delete).unwrap();
         }
 
         STEP_STATE.replace(true);
